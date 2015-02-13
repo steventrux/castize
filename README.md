@@ -15,7 +15,8 @@ sourcedir: is the directory where to be converted videos are
 destdir: is the directory where converted video will be created
  
 # Usage:
-# castable.sh "outmode" "sourcedir" "destdir"
+castable.sh "outmode" "sourcedir" "destdir"
+
 castable.sh mp4 /home/user/videos /home/user/chromecastvideos
 
 or
