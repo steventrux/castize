@@ -2,11 +2,10 @@
  
 # Batch Convertion Script by StevenTrux
 # The Purpose of this Script is to batch convert any video file to mp4 or mkv format for chromecast compatibility
-# this script only convert necessary tracks if the video is already in H.264 format it won't convert it saving your time!
+# this script only convert necessary tracks saving your time!
  
 # Put all video files need to be converted in a folder!
-# the name of files must not have " " Space!
-# Rename the File if contain space 
+# the name of files must not have space!
  
 # Variable used:
 # outmode should be mp4 or mkv
