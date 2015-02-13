@@ -12,11 +12,12 @@ outmode: mp4 or mkv
 
 sourcedir: is the directory where to be converted videos are
 
-indir: is the directory where converted video will be created
+destdir: is the directory where converted video will be created
  
-# usage:
-cast.sh mp4 /home/user/videos /home/user/chromecastvideos
+# Usage:
+# castable.sh "outmode" "sourcedir" "destdir"
+castable.sh mp4 /home/user/videos /home/user/chromecastvideos
 
 or
 
-cast.sh mkv /home/user/videos /home/user/chromecastvideos
+castable.sh mkv /home/user/videos /home/user/chromecastvideos
