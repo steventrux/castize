@@ -148,7 +148,7 @@ do
  
 # using ffmpeg for real converting
 	echo "ffmpeg -i $filelist -y -f $outformat -acodec $acodec -ab 192k -ac 2 -absf aac_adtstoasc -async 1 -vcodec $vcodec -vsync 0 -profile:v main -level 3.1 -qmax 22 -qmin 20 -x264opts no-cabac:ref=2 -threads 0 $indir/castable/$filelist.$outmode"
-	ffmpeg -i $filelist -y -f $outformat -acodec $acodec -ab 192k -ac 2 -absf aac_adtstoasc -async 1 -vcodec $vcodec -vsync 0 -profile:v main -level 3.1 -qmax 22 -qmin 20 -x264opts no-cabac:ref=2 -threads 0 $indir/castable/$filelist.$outmode
+	ffmpeg -i $filelist -y -f $outformat -acodec $acodec -ab 192k -ac 2 -absf aac_adtstoasc -async 1 -vcodec $vcodec -vsync 0 -profile:v high -level 3.1 -qmax 22 -qmin 20 -x264opts no-cabac:ref=2 -threads 0 $indir/castable/$filelist.$outmode
  
 	
 done
