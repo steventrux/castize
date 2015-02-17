@@ -6,7 +6,12 @@ The script only convert necessary tracks, saving your time!
  
 Put all video files need to be converted in a folder!
 The name of files must not have space. 
- 
+
+# Prerequisites:
+Batch-cast requires H.264 video encoder and AAC audio encoder.
+
+https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+
 # Variables:
 outmode: mp4 or mkv
 
