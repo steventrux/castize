@@ -13,9 +13,9 @@
 
 # usage:
 #########################
-# castable.sh mp4 /home/user/videos /home/user/chromecastvideos
+# castable.sh mp4 /home/user/videos /home/user/chromecastvideos/
 # or
-# castable.sh mkv /home/user/videos /home/user/chromecastvideos
+# castable.sh mkv /home/user/videos /home/user/chromecastvideos/
 #########################
 
 # working mode
@@ -131,12 +131,7 @@ do
 	    vcodec=libx264
 	fi
 
-	if ffmpeg -i $filelist 2>&1 | grep Video: | grep "High 10"	#10 bit H.264 can't be played by Hardware.
-	   then
-	    vcodec=libx264
-	fi
-
-	if [ ffmpeg -i $filelist 2>&1 | grep Audio: | grep aac ] || [ 	ffmpeg -i $filelist 2>&1 | grep Audio: | grep mp3 ]	#check audio codec
+	if ffmpeg -i $filelist 2>&1 | grep Audio: | grep aac	        #check audio codec
 	   then
 	    acodec=copy
 	   else
@@ -144,11 +139,13 @@ do
 	fi
 
         echo "Converting $filelist"
-	echo "Video codec: $vcodec Audio codec: $acodec Container: $outformat" 
+	echo "Video codec: $vcodec Audio codec: $acodec Container: $outformat"
 
 # using ffmpeg for real converting
-	echo "ffmpeg -i $filelist -y -f $outformat -acodec $acodec -ab 192k -ac 2 -absf aac_adtstoasc -async 1 -vcodec $vcodec -vsync 0 -profile:v main -level 3.1 -qmax 22 -qmin 20 -x264opts no-cabac:ref=2 -threads 0 $indir/castable/$filelist.$outmode"
-	ffmpeg -i $filelist -y -f $outformat -acodec $acodec -ab 192k -ac 2 -absf aac_adtstoasc -async 1 -vcodec $vcodec -vsync 0 -profile:v high -level 3.1 -qmax 22 -qmin 20 -x264opts no-cabac:ref=2 -threads 0 $indir/castable/$filelist.$outmode
+	echo "ffmpeg -i $filelist -codec:v $vcode -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$filelist.$outmode"
+	#ffmpeg -i $filelist -y -f $outformat -acodec $acodec -ab 192k -ac 2 -absf aac_adtstoasc -async 1 -vcodec $vcodec -vsync 0 -profile:v high -level 3.1 -qmax 22 -qmin 20 -x264opts no-cabac:ref=2 -threads 0 $indir/castable/$filelist.$outmode
+        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$filelist.$outmode
+
 
 done
 	echo ALL Processed!
