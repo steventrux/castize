@@ -5,7 +5,6 @@
 # this script only convert necessary tracks saving your time!
  
 # Put all video files need to be converted in a folder!
-# the name of files must not have space!
  
 # Variable used:
 # outmode should be mp4 or mkv
@@ -115,8 +114,10 @@ echo "Your FFMpeg is OK Entering File Processing"
  
 ################################################################
 cd "$sourcedir"
+rename "s/ /_/g" *
 for filelist in `ls`
 do
+
 	if ffmpeg -i $filelist 2>&1 | grep 'Invalid data found'		#check if it's video file
 	   then
 	   echo "ERROR File $filelist is NOT A VIDEO FILE can be converted!"
