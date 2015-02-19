@@ -48,9 +48,9 @@ indir=$3
 if [ $indir ]; then
 if mkdir -p $indir/castable
 	then
-	 echo "Using $indir as Output Folder"
+	 echo "Using $indir/castable/ as Output Folder"
 	else
-	 echo "Error: Check if you have the rights to write in $indir"
+	 echo "Error: Check if you have the rights to write in $indir/castable"
 	 exit
 fi
 	else
@@ -141,9 +141,12 @@ do
         echo "Converting $filelist"
 	echo "Video codec: $vcodec Audio codec: $acodec Container: $outformat"
 
+# remove original file extension
+         destfile=${filelist%.*}
+
 # using ffmpeg for real converting
 	echo "ffmpeg -i $filelist -codec:v $vcode -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$filelist.$outmode"
-        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$filelist.$outmode
+        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$destfile.$outmode
 
 
 done
