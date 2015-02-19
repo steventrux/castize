@@ -143,7 +143,7 @@ do
 
 # remove original file extension
          destfile=${filelist%.*}
-         
+
 # using ffmpeg for real converting
 	echo "ffmpeg -i $filelist -codec:v $vcode -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$filelist.$outmode"
         ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$destfile.$outmode
