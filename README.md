@@ -6,7 +6,7 @@ The Purpose of this Script is to batch convert any video file in a folder for ch
 The script only convert non compatible audio and video tracks.
 
 # Prerequisites:
-Batch-cast requires H.264 video encoder and AAC audio encoder.
+Batch-cast requires ffmpeg, H.264 video encoder and AAC audio encoder.
 
 https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 
