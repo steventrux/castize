@@ -13,59 +13,9 @@
 
 # usage:
 #########################
-# castable.sh mp4 /home/user/videos /home/user/chromecastvideos/
-# or
-# castable.sh mkv /home/user/videos /home/user/chromecastvideos/
+# castable.sh /home/user/videos /home/user/chromecastvideos/
 #########################
-
-# working mode
-outmode=$1
-# check output mode
-if [ $outmode ]; then
-if [ $outmode = "mp4" ] || [ $outmode = "mkv" ]
-	then
-	echo "WORKING MODE $outmode"
-	else
-	echo "$outmode is NOT a Correct target format. You need to set an output format! like castable.sh mp4 xxxx or cast.sh mkv xxxx"
-	exit
-fi
-else
-echo "Working mode is missing. You should set a correct target format like mp4 or mkv"
-exit
-fi
-
-# Source dir
-sourcedir=$2
-if [ $sourcedir ]; then
-     echo "Using $sourcedir as Input Folder"
-	else
-	 echo "Error: Check if you have set an input folder"
-	 exit
-fi
-
-# Target dir
-indir=$3
-if [ $indir ]; then
-if mkdir -p $indir/castable
-	then
-	 echo "Using $indir/castable/ as Output Folder"
-	else
-	 echo "Error: Check if you have the rights to write in $indir/castable"
-	 exit
-fi
-	else
-	 echo "Error: Check if you have set an output folder"
-	 exit
-fi
-
-# set format
-if [ $outmode=mp4 ]
-	then
-	 outformat=mp4
-	else
-	 outformat=matroska
-fi
-
+clear
 # Check FFMPEG Installation
 if ffmpeg -formats > /dev/null 2>&1
 	then
@@ -110,7 +60,46 @@ if ffmpeg -codecs 2> /dev/null | grep "libx264" > /dev/null
          exit
 fi
 
-echo "Your FFMpeg is OK Entering File Processing"
+echo
+echo "Your FFMpeg installation is OK Entering File Processing"
+echo
+
+confirm_mode=0
+  while [ $confirm_mode = 0 ]
+    do
+      read -p "Enter file extension (mkv or mp4): " answer
+      outmode=$answer
+      if [ $outmode = "mp4" ] || [ $outmode = "mkv" ]
+      then
+        confirm_mode=1
+      else
+      echo "$outmode is NOT a Correct file extension. It should be mkv or mp4."
+      fi
+    done
+
+# Source dir
+sourcedir=$1
+if [ $sourcedir ]; then
+     echo "Using $sourcedir as Input Folder"
+	else
+	 echo "Error: Check if you have set an input folder"
+	 exit
+fi
+
+# Target dir
+indir=$2
+if [ $indir ]; then
+if mkdir -p $indir/castable
+	then
+	 echo "Using $indir/castable/ as Output Folder"
+	else
+	 echo "Error: Check if you have the rights to write in $indir/castable"
+	 exit
+fi
+	else
+	 echo "Error: Check if you have set an output folder"
+	 exit
+fi
 
 ################################################################
 cd "$sourcedir"
