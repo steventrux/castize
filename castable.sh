@@ -30,7 +30,7 @@ confirm_mode=0
     done
 
 # Source dir
-sourcedir=$2
+sourcedir=$1
 if [ $sourcedir ]; then
      echo "Using $sourcedir as Input Folder"
 	else
@@ -39,7 +39,7 @@ if [ $sourcedir ]; then
 fi
 
 # Target dir
-indir=$3
+indir=$2
 if [ $indir ]; then
 if mkdir -p $indir/castable
 	then
@@ -51,14 +51,6 @@ fi
 	else
 	 echo "Error: Check if you have set an output folder"
 	 exit
-fi
-
-# set format
-if [ $outmode=mp4 ]
-	then
-	 outformat=mp4
-	else
-	 outformat=matroska
 fi
 
 # Check FFMPEG Installation
