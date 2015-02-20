@@ -139,8 +139,10 @@ do
 
 
 done
+        echo
 	echo ALL Processed!
 
 ###################
+echo
 echo "DONE, your video files are chromecast ready"
 exit
