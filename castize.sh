@@ -10,52 +10,76 @@
 
 # usage:
 #########################
-# castable.sh /home/user/videos /home/user/chromecastvideos
+# castize.sh /home/user/your_videos /home/user/chromecast_videos
 #########################
 clear
 # Check FFMPEG Installation
+
+confirm_mode=0
+  while [ $confirm_mode = 0 ]
+    do
+
 if ffmpeg -formats > /dev/null 2>&1
 	then
 	 ffversion=`ffmpeg -version 2> /dev/null | grep ffmpeg | sed -n 's/ffmpeg\s//p'`
 	 echo "Your ffmpeg verson is $ffversion"
+         ffmpeg=1
 	else
 	 echo "ERROR: You need ffmpeg installed with x264 and libfdk_aac encoder"
-	 exit
+         ffmpeg=0
 fi
 
 if ffmpeg -formats 2> /dev/null | grep "E mp4" > /dev/null
 	then
 	 echo "Check mp4 container format ... OK"
+        mp4=1
 	else
 	 echo "Check mp4 container format ... NOK"
-	 exit
+        mp4=0
 fi
 
 if ffmpeg -formats 2> /dev/null | grep "E matroska" > /dev/null
         then
          echo "Check mkv container format ... OK"
+        mkv=1
         else
          echo "Check mkv container format ... NOK"
-         exit
+        mkv=0
 fi
 
 if ffmpeg -codecs 2> /dev/null | grep "libfdk_aac" > /dev/null
         then
          echo "Check AAC Audio Encoder ... OK"
+        aac=1
         else
          echo "Check AAC Audio Encoder ... Not OK"
+         echo
          echo "Requires ffmpeg to be configured with --enable-libfdk_aac"
-         exit
+         echo
+        aac=0
 fi
 
 if ffmpeg -codecs 2> /dev/null | grep "libx264" > /dev/null
         then
          echo "Check x264 the free H.264 Video Encoder ... OK"
+        x264=1
         else
          echo "Check x264 the free H.264 Video Encoder ... Not OK"
+         echo
          echo "Requires ffmpeg to be configured with --enable-gpl --enable-libx264"
-         exit
+         echo
+        x264=0
 fi
+
+      if [ $ffmpeg = 1 ] && [ $mp4 = 1 ] && [ $aac = 1 ] && [ $mkv = 1 ] && [ $x264 = 1 ];
+      then
+          confirm_mode=1
+      else
+          echo "Your FFMpeg installation is Not OK"
+          exit
+      fi
+    done
+
 
 echo
 echo "Your FFMpeg installation is OK Entering File Processing"
@@ -86,11 +110,11 @@ fi
 # Target dir
 indir=$2
 if [ $indir ]; then
-if mkdir -p $indir/castable
+if mkdir -p $indir/CCast_Videos
 	then
-	 echo "Using $indir/castable/ as Output Folder"
+	 echo "Using $indir/CCast_Videos/ as Output Folder"
 	else
-	 echo "Error: Check if you have the rights to write in $indir/castable"
+	 echo "Error: Check if you have the rights to write in $indir"
 	 exit
 fi
 	else
@@ -131,8 +155,8 @@ do
          destfile=${filelist%.*}
 
 # using ffmpeg for real converting
-	echo "ffmpeg -i $filelist -codec:v $vcode -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$filelist.$outmode"
-        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/castable/$destfile.$outmode
+	echo "ffmpeg -i $filelist -codec:v $vcode -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/CCast_Videos/$filelist.$outmode"
+        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/CCast_Videos/$destfile.$outmode
 
 
 done
@@ -141,5 +165,5 @@ done
 
 ###################
 echo
-echo "DONE, your video files are chromecast ready"
+echo "DONE, your video files are chromecast ready!"
 exit
