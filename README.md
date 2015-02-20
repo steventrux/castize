@@ -3,8 +3,6 @@ Batch convert script for chromecast compatibility.
 
 The Purpose of this Script is to batch convert any video file in a folder for chromecast compatibility.
 The script only convert necessary tracks, saving your time!
- 
-Put all video files to convert in a folder!
 
 # Prerequisites:
 Batch-cast requires H.264 video encoder and AAC audio encoder.
