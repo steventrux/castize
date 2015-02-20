@@ -15,7 +15,7 @@
 #########################
 # castable.sh /home/user/videos /home/user/chromecastvideos/
 #########################
-
+clear
 # Check FFMPEG Installation
 if ffmpeg -formats > /dev/null 2>&1
 	then
@@ -60,7 +60,9 @@ if ffmpeg -codecs 2> /dev/null | grep "libx264" > /dev/null
          exit
 fi
 
+echo
 echo "Your FFMpeg installation is OK Entering File Processing"
+echo
 
 confirm_mode=0
   while [ $confirm_mode = 0 ]
