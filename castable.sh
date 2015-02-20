@@ -16,43 +16,6 @@
 # castable.sh /home/user/videos /home/user/chromecastvideos/
 #########################
 
-confirm_mode=0
-  while [ $confirm_mode = 0 ]
-    do
-      read -p "Enter file extension (mkv or mp4): " answer
-      outmode=$answer
-      if [ $outmode = "mp4" ] || [ $outmode = "mkv" ]
-      then
-        confirm_mode=1
-      else
-      echo "$outmode is NOT a Correct file extension. It should be mkv or mp4."
-      fi
-    done
-
-# Source dir
-sourcedir=$1
-if [ $sourcedir ]; then
-     echo "Using $sourcedir as Input Folder"
-	else
-	 echo "Error: Check if you have set an input folder"
-	 exit
-fi
-
-# Target dir
-indir=$2
-if [ $indir ]; then
-if mkdir -p $indir/castable
-	then
-	 echo "Using $indir/castable/ as Output Folder"
-	else
-	 echo "Error: Check if you have the rights to write in $indir/castable"
-	 exit
-fi
-	else
-	 echo "Error: Check if you have set an output folder"
-	 exit
-fi
-
 # Check FFMPEG Installation
 if ffmpeg -formats > /dev/null 2>&1
 	then
@@ -97,7 +60,44 @@ if ffmpeg -codecs 2> /dev/null | grep "libx264" > /dev/null
          exit
 fi
 
-echo "Your FFMpeg is OK Entering File Processing"
+echo "Your FFMpeg installation is OK Entering File Processing"
+
+confirm_mode=0
+  while [ $confirm_mode = 0 ]
+    do
+      read -p "Enter file extension (mkv or mp4): " answer
+      outmode=$answer
+      if [ $outmode = "mp4" ] || [ $outmode = "mkv" ]
+      then
+        confirm_mode=1
+      else
+      echo "$outmode is NOT a Correct file extension. It should be mkv or mp4."
+      fi
+    done
+
+# Source dir
+sourcedir=$1
+if [ $sourcedir ]; then
+     echo "Using $sourcedir as Input Folder"
+	else
+	 echo "Error: Check if you have set an input folder"
+	 exit
+fi
+
+# Target dir
+indir=$2
+if [ $indir ]; then
+if mkdir -p $indir/castable
+	then
+	 echo "Using $indir/castable/ as Output Folder"
+	else
+	 echo "Error: Check if you have the rights to write in $indir/castable"
+	 exit
+fi
+	else
+	 echo "Error: Check if you have set an output folder"
+	 exit
+fi
 
 ################################################################
 cd "$sourcedir"
