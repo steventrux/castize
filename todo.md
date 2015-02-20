@@ -1,1 +1,1 @@
-[] autoinstall ffmpeg and needed encoders
++ autoinstall ffmpeg and needed encoders
