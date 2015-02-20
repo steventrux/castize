@@ -1,19 +1,16 @@
 #! /bin/bash
 
-# Batch Convertion Script by StevenTrux
-# The Purpose of this Script is to batch convert any video file to mp4 or mkv format for chromecast compatibility
-# this script only convert necessary tracks saving your time!
-
-# Put all video files need to be converted in a folder!
+#Batch convert script by StevenTrux.
+#The Purpose of this Script is to batch convert any video file in a folder for chromecast compatibility.
+#The script only convert non compatible audio and video tracks.
 
 # Variable used:
-# outmode should be mp4 or mkv
 # sourcedir is the directory where to be converted videos are
 # indir is the directory where converted video will be created
 
 # usage:
 #########################
-# castable.sh /home/user/videos /home/user/chromecastvideos/
+# castable.sh /home/user/videos /home/user/chromecastvideos
 #########################
 clear
 # Check FFMPEG Installation
