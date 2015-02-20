@@ -13,26 +13,21 @@
 
 # usage:
 #########################
-# castable.sh mp4 /home/user/videos /home/user/chromecastvideos/
-# or
-# castable.sh mkv /home/user/videos /home/user/chromecastvideos/
+# castable.sh /home/user/videos /home/user/chromecastvideos/
 #########################
 
-# working mode
-outmode=$1
-# check output mode
-if [ $outmode ]; then
-if [ $outmode = "mp4" ] || [ $outmode = "mkv" ]
-	then
-	echo "WORKING MODE $outmode"
-	else
-	echo "$outmode is NOT a Correct target format. You need to set an output format! like castable.sh mp4 xxxx or cast.sh mkv xxxx"
-	exit
-fi
-else
-echo "Working mode is missing. You should set a correct target format like mp4 or mkv"
-exit
-fi
+confirm_mode=0
+  while [ $confirm_mode = 0 ]
+    do
+      read -p "Enter file extension (mkv or mp4): " answer
+      outmode=$answer
+      if [ $outmode = "mp4" ] || [ $outmode = "mkv" ]
+      then
+        confirm_mode=1
+      else
+      echo "$outmode is NOT a Correct file extension. It should be mkv or mp4."
+      fi
+    done
 
 # Source dir
 sourcedir=$2
