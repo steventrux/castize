@@ -75,7 +75,9 @@ fi
       then
           confirm_mode=1
       else
+          echo
           echo "Your FFMpeg installation is Not OK"
+          echo
           exit
       fi
     done
@@ -84,6 +86,35 @@ fi
 echo
 echo "Your FFMpeg installation is OK Entering File Processing"
 echo
+
+# Source dir
+sourcedir=$1
+if [ $sourcedir ]; then
+     echo "Using $sourcedir as Input Folder"
+     echo
+        else
+         echo "Error: input folder missing (castize.sh /home/user/your_videos /home/user/chromecast_videos)"
+         echo
+         exit
+fi
+
+# Target dir
+indir=$2
+if [ $indir ]; then
+if mkdir -p $indir/CCast_Videos
+        then
+         echo "Using $indir/CCast_Videos/ as Output Folder"
+         echo
+        else
+         echo "Error: you can' t write in $indir"
+         echo
+         exit
+fi
+        else
+         echo "Error: output folder missing (castize.sh /home/user/your_videos /home/user/chromecast_videos)"
+         echo
+         exit
+fi
 
 confirm_mode=0
   while [ $confirm_mode = 0 ]
@@ -98,39 +129,15 @@ confirm_mode=0
       fi
     done
 
-# Source dir
-sourcedir=$1
-if [ $sourcedir ]; then
-     echo "Using $sourcedir as Input Folder"
-	else
-	 echo "Error: Check if you have set an input folder"
-	 exit
-fi
-
-# Target dir
-indir=$2
-if [ $indir ]; then
-if mkdir -p $indir/CCast_Videos
-	then
-	 echo "Using $indir/CCast_Videos/ as Output Folder"
-	else
-	 echo "Error: Check if you have the rights to write in $indir"
-	 exit
-fi
-	else
-	 echo "Error: Check if you have set an output folder"
-	 exit
-fi
-
 ################################################################
 cd "$sourcedir"
 rename "s/ /_/g" *
-for filelist in `ls`
+for filelist in `find -maxdepth 1 -type f | sed s,^./,,`
 do
 
 	if ffmpeg -i $filelist 2>&1 | grep 'Invalid data found'		#check if it's video file
 	   then
-	   echo "ERROR File $filelist is NOT A VIDEO FILE can be converted!"
+	   echo "ERROR: $filelist is NOT A VIDEO FILE"
 	   continue
 	fi
 
@@ -156,7 +163,7 @@ do
 
 # using ffmpeg for real converting
 	echo "ffmpeg -i $filelist -codec:v $vcode -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/CCast_Videos/$filelist.$outmode"
-        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/CCast_Videos/$destfile.$outmode
+        ffmpeg -i $filelist -codec:v $vcodec -tune -film -codec:a $acodec -b:a 384k -movflags +faststart $indir/CCast_Videos/$destfile.CCast.$outmode
 
 
 done
