@@ -1,4 +1,4 @@
-# batch-cast
+# Castize
 Batch convert script for chromecast compatibility.
 
 The Purpose of this Script is to batch convert any video file in a folder for chromecast compatibility.
@@ -6,7 +6,7 @@ The Purpose of this Script is to batch convert any video file in a folder for ch
 The script only convert non compatible audio and video tracks.
 
 # Prerequisites:
-Batch-cast requires ffmpeg, H.264 video encoder and AAC audio encoder.
+Castize requires ffmpeg, H.264 video encoder and AAC audio encoder.
 
 https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 
@@ -16,6 +16,6 @@ sourcedir: is the directory where to be converted videos are
 destdir: is the directory where converted video will be created
  
 # Usage:
-castable.sh "sourcedir" "destdir"
+castize.sh "sourcedir" "destdir"
 
-castable.sh /home/user/videos /home/user/chromecastvideos
+castize.sh /home/user/videos /home/user/chromecastvideos
