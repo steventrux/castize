@@ -17,4 +17,4 @@ Castize requires **ffmpeg**, **H.264** video encoder and **AAC** audio encoder.
 # Usage:
 > wget https://raw.githubusercontent.com/steventrux/castize/master/castize.sh
 
-> castize.sh /home/user/videos /home/user/chromecastvideos
+> sh castize.sh /home/user/videos /home/user/chromecastvideos
