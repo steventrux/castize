@@ -78,22 +78,27 @@ fi
           echo
           echo "Your FFMpeg installation is Not OK"
           echo
-          
+
+#castize ask for ffmpeg and encoders auto compilation
+
           confirm_mode=0
                while [ $confirm_mode = 0 ]
                do
                    read -p "Do you want castize compile FFmpeg and needed encoders for you?: " answer
                    compile=$answer
-                        if  $answer = [yY] 
+                        if  [ $answer = y ] || [ $answer = Y ];
                            then
                            confirm_mode=1
                            echo "Castize will now install all you need"
+                           bash compile_ffmpeg.sh
+                           clear
+                           echo "eureka"
+                           exit
                        else
                             echo "Please compile ffmpeg and needed encoders"
+                            exit
                        fi
                  done
-          
-          exit
       fi
     done
 
