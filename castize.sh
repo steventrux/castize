@@ -93,7 +93,6 @@ fi
                            wget https://raw.githubusercontent.com/steventrux/castize/master/compile_ffmpeg.sh
                            bash compile_ffmpeg.sh
                            rm compile_ffmpeg.sh
-                           exec sh castize.sh
                        else
                             echo "Please compile ffmpeg and needed encoders"
                             exit
