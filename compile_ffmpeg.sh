@@ -13,6 +13,9 @@ timer ()
 echo "Updating & Upgrading your system"
 
 timer 5
+#removing old version of ffmpeg
+sudo apt-get -y remove ffmpeg
+
 #updating and upgrading system
 sudo apt-get update
 sudo apt-get -y upgrade
