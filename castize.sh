@@ -34,7 +34,7 @@ if ffmpeg -formats 2> /dev/null | grep "E mp4" > /dev/null
 	 echo "Check mp4 container format ... OK"
         mp4=1
 	else
-	 echo "Check mp4 container format ... NOK"
+	 echo "Check mp4 container format ... Not OK"
         mp4=0
 fi
 
@@ -43,7 +43,7 @@ if ffmpeg -formats 2> /dev/null | grep "E matroska" > /dev/null
          echo "Check mkv container format ... OK"
         mkv=1
         else
-         echo "Check mkv container format ... NOK"
+         echo "Check mkv container format ... Not OK"
         mkv=0
 fi
 
@@ -78,7 +78,27 @@ fi
           echo
           echo "Your FFMpeg installation is Not OK"
           echo
-          exit
+
+#castize ask for ffmpeg and encoders auto compilation
+
+          confirm_mode=0
+               while [ $confirm_mode = 0 ]
+               do
+                   read -p "Do you want castize compile FFmpeg and needed encoders for you?: " answer
+                   compile=$answer
+                        if  [ $answer = y ] || [ $answer = Y ];
+                           then
+                           confirm_mode=1
+                           echo "Compiling ffmpeg and needed encoders"
+                           wget https://raw.githubusercontent.com/steventrux/castize/master/compile_ffmpeg.sh
+                           bash compile_ffmpeg.sh
+                           rm compile_ffmpeg.sh
+                           exec sh castize.sh
+                       else
+                            echo "Please compile ffmpeg and needed encoders"
+                            exit
+                       fi
+                 done
       fi
     done
 
