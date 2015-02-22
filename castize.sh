@@ -89,11 +89,11 @@ fi
                         if  [ $answer = y ] || [ $answer = Y ];
                            then
                            confirm_mode=1
-                           echo "Castize will now install all you need"
+                           echo "Compiling ffmpeg and needed encoders"
+                           wget https://raw.githubusercontent.com/steventrux/castize/master/compile_ffmpeg.sh
                            bash compile_ffmpeg.sh
-                           clear
-                           echo "eureka"
-                           exit
+                           rm compile_ffmpeg.sh
+                           exec sh castize.sh
                        else
                             echo "Please compile ffmpeg and needed encoders"
                             exit
