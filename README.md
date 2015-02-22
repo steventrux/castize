@@ -10,6 +10,8 @@ Castize requires **ffmpeg**, **H.264** video encoder and **AAC** audio encoder.
 
 [FFmpeg compilation guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu)
 
+If ffmpeg is not installed on your system, castize can compile it for you.
+
 # Variables:
 * *sourcedir* is the directory where to be converted videos are
 * *destdir* is the directory where converted video will be created
