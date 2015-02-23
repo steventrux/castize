@@ -12,11 +12,7 @@ Castize requires **ffmpeg**, **H.264** video encoder and **AAC** audio encoder.
 
 If ffmpeg is not installed on your system, castize can compile it for you.
 
-# Variables:
-* *sourcedir* is the directory where to be converted videos are
-* *destdir* is the directory where converted video will be created
- 
 # Usage:
 > wget https://raw.githubusercontent.com/steventrux/castize/master/castize.sh
 
-> sh castize.sh /home/user/videos /home/user/chromecastvideos
+> sh castize.sh /home/user/original_videos /home/user/chromecast_videos
