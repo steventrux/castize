@@ -10,7 +10,7 @@ Castize requires **ffmpeg**, **H.264** video encoder and **AAC** audio encoder.
 
 [FFmpeg compilation guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu)
 
-If ffmpeg is not installed on your system, castize can compile it for you.
+If ffmpeg is not installed on your system, castize can compile it for you (only ubuntu is supported right now).
 
 # Usage:
 > wget https://raw.githubusercontent.com/steventrux/castize/master/castize.sh
