@@ -79,6 +79,13 @@ fi
           echo "Your FFMpeg installation is Not OK"
           echo
 
+#check running distro
+distro=`lsb_release -si`
+
+#
+if [ $distro = Ubuntu ];
+then
+
 #castize ask for ffmpeg and encoders auto compilation
 
           confirm_mode=0
@@ -90,14 +97,22 @@ fi
                            then
                            confirm_mode=1
                            echo "Compiling ffmpeg and needed encoders"
-                           wget https://raw.githubusercontent.com/steventrux/castize/master/compile_ffmpeg.sh
-                           bash compile_ffmpeg.sh
-                           rm compile_ffmpeg.sh
+                           wget https://raw.githubusercontent.com/steventrux/castize/master/compile_ffmpeg_$distro.sh
+                           bash compile_ffmpeg_$distro.sh
+                           rm compile_ffmpeg_$distro.sh
                        else
                             echo "Please compile ffmpeg and needed encoders"
                             exit
                        fi
                  done
+else
+
+echo "Sorry but actually your distro is not supported"
+echo "Right now only Ubuntu is supported"
+
+exit
+fi
+
       fi
     done
 
