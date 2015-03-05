@@ -1,6 +1,7 @@
 # Castize
 
 [![Join the chat at https://gitter.im/steventrux/castize](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/steventrux/castize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Batch convert script for chromecast compatibility.
 
 The Purpose of this Script is to batch convert any video file in a folder for chromecast compatibility.
