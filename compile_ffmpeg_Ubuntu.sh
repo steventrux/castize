@@ -1,5 +1,8 @@
 #! /bin/bash
 
+#last ffmpeg version
+ffmpeg=2.5.4
+
 timer ()
 {
     SECS=$1
@@ -42,8 +45,8 @@ make distclean
 
 #compile ffmpeg
 cd $dir/ffmpeg_sources
-wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-tar xjvf ffmpeg-snapshot.tar.bz2
+wget http://ffmpeg.org/releases/ffmpeg-$ffmpeg.tar.bz2
+tar xjvf ffmpeg-$ffmpeg.tar.bz2
 cd ffmpeg
 PATH="$dir/bin:$PATH" PKG_CONFIG_PATH="$dir/ffmpeg_build/lib/pkgconfig" ./configure \
   --prefix="$dir/ffmpeg_build" \
