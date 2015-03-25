@@ -1,21 +1,23 @@
-# Castize
+# Cron Castize
 
 [![Join the chat at https://gitter.im/steventrux/castize](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/steventrux/castize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Batch convert script for chromecast compatibility.
+Cron version of the batch convert script for chromecast compatibility.
 
-The Purpose of this Script is to batch convert any video file in a folder for chromecast compatibility.
-
-The script only convert non compatible audio and video tracks.
+The Purpose of this Script is to batch convert, every x time, any video file in a folder for chromecast compatibility.
 
 # Prerequisites:
 Castize requires **ffmpeg**, **H.264** video encoder and **AAC** audio encoder.
 
 [FFmpeg compilation guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu)
 
-If ffmpeg is not installed on your system, castize can compile it for you (only ubuntu is supported right now).
+This version of castize will not check ffmpeg compatibility, so if not sure run the ffmpeg auto install script:
+
+> https://raw.githubusercontent.com/steventrux/castize/master/compile_ffmpeg_Ubuntu.sh
 
 # Usage:
-> wget https://raw.githubusercontent.com/steventrux/castize/master/castize.sh
+Move the script to /usr/local/bin and add to your crontab (crontab -e):
 
-> sh castize.sh /home/user/original_videos /home/user/chromecast_videos
+> * * * * * /usr/local/bin/cron_castize.sh
+
+The script will run every minute (edit the crontab according to your needs).
