@@ -25,6 +25,9 @@ fi
 #set the path with videos to convert
 cd /path/to/videos
 
+#set your email for notifications
+email=user@email.com
+
 rename "s/ /_/g" *
 for filelist in `find -maxdepth 1 -type f | sed s,^./,,`
 do
@@ -49,6 +52,9 @@ do
 # using ffmpeg for converting
 # edit the destination path for your converted videos
         ffmpeg -i $filelist -codec:v $vcodec -b 2000k -tune -film -codec:a $acodec -b:a 384k -movflags +faststart /destination/path/$destfile.CCast.mkv
+
+# sending a mail after conversion
+        echo $destfile "convertion has completed" | /usr/sbin/sendmail -F ffmpeg@castize $email
 
 # removing original file after convertion
         rm $filelist
