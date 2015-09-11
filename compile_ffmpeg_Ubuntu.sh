@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #last ffmpeg version
-ffmpeg=2.7.2
+ffmpeg=2.8
 
 timer ()
 {
