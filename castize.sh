@@ -33,7 +33,10 @@ set -e
 #
 #########################
 
-clear
+if [ -n "${TERM}" ] && [ "${TERM}" != 'dumb' ]
+then
+    clear
+fi
 
 # Check FFMPEG Installation
 function check_ffmpeg() {
