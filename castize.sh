@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -e
+
 # Batch convert script by StevenTrux.
 # The Purpose of this Script is to batch convert any video file in a folder for chromecast compatibility.
 # The script only convert non compatible audio and video tracks.
@@ -11,6 +13,10 @@
 # usage:
 #########################
 # castize.sh /home/user/your_videos /home/user/chromecast_videos
+#
+# choose source/target directory via environment
+# CASTIZE_SOURCE_DIR=/home/user/your_videos
+# CASTIZE_TARGET_DIR=/home/user/chromecast_videos
 #
 # set your email for notifications:
 # CASTIZE_EMAIL=user@email.com
@@ -127,30 +133,13 @@ function check_ffmpeg() {
     echo "Your FFMpeg installation is OK Entering File Processing"
 }
 
-function check_sourcedir() {
-    if [ ${sourcedir} ]
+function check_targetdir() {
+    if mkdir -p "${indir}/CCast_Videos"
     then
-        echo "Using ${sourcedir} as Input Folder"
+        echo "Using ${indir}/CCast_Videos/ as Output Folder"
         echo
     else
-        echo "Error: input folder missing (castize.sh /home/user/your_videos /home/user/chromecast_videos)"
-        exit 1
-    fi
-}
-
-function check_targetdir() {
-    if [ ${indir} ];
-    then
-        if mkdir -p "${indir}/CCast_Videos"
-        then
-            echo "Using ${indir}/CCast_Videos/ as Output Folder"
-            echo
-        else
-             echo "Error: you can' t write in ${indir}"
-             exit 1
-        fi
-    else
-         echo "Error: output folder missing (castize.sh /home/user/your_videos /home/user/chromecast_videos)"
+         echo "Error: you can' t write in ${indir}"
          exit 1
     fi
 }
@@ -227,16 +216,39 @@ function remove_spaces() {
     fi
 }
 
+function check_dir() {
+    if [ -z "${2}" ]
+    then
+        echo "${1} is unspecified"
+        echo "usage: ${0} source-dir target-dir"
+        exit 1
+    fi
 
-# Source dir
-sourcedir=${1}
-# Target dir
-indir=${2}
+    if [ ! -e "${2}" ]
+    then
+        echo "${2} does not exist"
+        echo "usage: ${0} source-dir target-dir"
+        exit 1
+    fi
+}
+
+if [ $# -eq 2 ]
+then
+    # pick directories from command line arguments
+    sourcedir="${1}"
+    indir="${2}"
+else
+    # pick directories from enviroment
+    sourcedir="${CASTIZE_SOURCE_DIR}"
+    indir="${CASTIZE_TARGET_DIR}"
+fi
+
+check_dir "source directory" "${sourcedir}"
+check_dir "target directory" "${target}"
 
 cd "${sourcedir}"
 
 check_ffmpeg
-check_sourcedir
 check_targetdir
 choose_outmode
 remove_spaces
