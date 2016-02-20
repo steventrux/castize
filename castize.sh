@@ -17,6 +17,9 @@
 #
 # skip ffmpeg check:
 # CASTIZE_NO_CHECK=1
+
+# skip renaming files:
+# CASTIZE_NO_RENAME=1
 #
 #########################
 
@@ -176,21 +179,21 @@ function notify_complete() {
 
 # convert a file ${1}
 function convert_file() {
-    file=${1}
-	if (ffmpeg -i ${file} 2>&1 | grep -q 'Invalid data found')  #check if it's video file
+    file="${1}"
+	if (ffmpeg -i "${file}" 2>&1 | grep -q 'Invalid data found')  #check if it's video file
     then
 	    echo "ERROR: ${file} is NOT A VIDEO FILE"
 	    continue
 	fi
 
-	if (ffmpeg -i $file 2>&1 | grep Video: | grep -q h264)      #check video codec
+	if (ffmpeg -i "${file}" 2>&1 | grep Video: | grep -q h264)      #check video codec
     then
         vcodec=copy
     else
         vcodec=libx264
 	fi
 
-	if (ffmpeg -i $file 2>&1 | grep Audio: | grep -q aac)       #check audio codec
+	if (ffmpeg -i "${file}" 2>&1 | grep Audio: | grep -q aac)       #check audio codec
     then
         acodec=copy
     else
@@ -201,11 +204,11 @@ function convert_file() {
 	echo "Video codec: ${vcodec} Audio codec: ${acodec} Container: ${outformat}"
 
     # remove original file extension
-    destfile=${file%.*}
+    destfile="${file%.*}"
 
     # using ffmpeg for real converting
 	echo "ffmpeg -i ${file} -codec:v ${vcode} -tune -film -codec:a ${acodec} -b:a 384k -movflags +faststart ${indir}/CCast_Videos/${file}.${outmode}"
-          ffmpeg -i ${file} -codec:v ${vcode} -tune -film -codec:a ${acodec} -b:a 384k -movflags +faststart ${indir}/CCast_Videos/${file}.${outmode}
+        ffmpeg -i "${file}" -codec:v ${vcode} -tune -film -codec:a ${acodec} -b:a 384k -movflags +faststart "${indir}/CCast_Videos/${file}.${outmode}"
 
     notify_complete ${destfile}
 }
@@ -218,7 +221,10 @@ function convert_all() {
 }
 
 function remove_spaces() {
-    rename "s/ /_/g" *
+    if [ -z "${CASTIZE_NO_RENAME}" ]
+    then
+        rename "s/ /_/g" *
+    fi
 }
 
 
