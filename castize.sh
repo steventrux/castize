@@ -12,8 +12,11 @@
 #########################
 # castize.sh /home/user/your_videos /home/user/chromecast_videos
 #
-# set your email for notifications
+# set your email for notifications:
 # CASTIZE_EMAIL=user@email.com
+#
+# skip ffmpeg check:
+# CASTIZE_NO_CHECK=1
 #
 #########################
 
@@ -22,7 +25,7 @@ clear
 # Check FFMPEG Installation
 function check_ffmpeg() {
 
-    confirm_mode=0
+    confirm_mode=${CASTIZE_NO_CHECK:-0}
     while [ ${confirm_mode} = 0 ]
     do
 
