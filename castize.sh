@@ -18,6 +18,10 @@ set -e
 # CASTIZE_SOURCE_DIR=/home/user/your_videos
 # CASTIZE_TARGET_DIR=/home/user/chromecast_videos
 #
+# choose output mode via environment
+# CASTIZE_OUTPUT_MODE=mp4
+# CASTIZE_OUTPUT_MODE=mkv
+#
 # set your email for notifications:
 # CASTIZE_EMAIL=user@email.com
 #
@@ -145,16 +149,15 @@ function check_targetdir() {
 }
 
 function choose_outmode() {
-    confirm_mode=0
-    while [ ${confirm_mode} = 0 ]
+    outmode="${CASTIZE_OUTPUT_MODE}"
+    while [ "${outmode}" != 'mp4' ] && [ "${outmode}" != 'mkv' ]
     do
-        read -p "Enter file extension (mkv or mp4): " outmode
-        if [ ${outmode} = "mp4" ] || [ ${outmode} = "mkv" ]
+        if [ -n "${outmode}" ]
         then
-            confirm_mode=1
-        else
             echo "${outmode} is NOT a Correct file extension. It should be mkv or mp4."
         fi
+
+        read -p "Enter file extension (mkv or mp4): " outmode
     done
 }
 
@@ -244,7 +247,7 @@ else
 fi
 
 check_dir "source directory" "${sourcedir}"
-check_dir "target directory" "${target}"
+check_dir "target directory" "${indir}"
 
 cd "${sourcedir}"
 
