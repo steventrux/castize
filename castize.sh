@@ -11,10 +11,13 @@
 # usage:
 #########################
 # castize.sh /home/user/your_videos /home/user/chromecast_videos
+#
+# set your email for notifications
+# CASTIZE_EMAIL=user@email.com
+#
 #########################
+
 clear
-#set your email for notifications
-email=user@email.com
 
 # Check FFMPEG Installation
 function check_ffmpeg() {
@@ -162,8 +165,10 @@ function choose_outmode() {
 
 # Notify, that destfile ${1} is complete
 function notify_complete() {
-    # sending a mail after conversion
-    echo "${1} convertion has completed" | /usr/sbin/sendmail -F ffmpeg@castize $email
+    if [ -n "${CASTIZE_EMAIL}" ]
+    then
+        echo "${1} convertion has completed" | /usr/sbin/sendmail -F ffmpeg@castize "${CASTIZE_EMAIL}"
+    fi
 }
 
 # convert a file ${1}
