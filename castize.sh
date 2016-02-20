@@ -22,6 +22,9 @@ set -e
 # CASTIZE_OUTPUT_MODE=mp4
 # CASTIZE_OUTPUT_MODE=mkv
 #
+# specify ffmpeg arguments via environment
+# CASTIZE_FFMPEG_ARGS=-tune -film -b:a 384k -movflags +faststart
+#
 # set your email for notifications:
 # CASTIZE_EMAIL=user@email.com
 #
@@ -202,8 +205,8 @@ function convert_file() {
     destfile="${file%.*}"
 
     # using ffmpeg for real converting
-	echo "ffmpeg -i ${file} -codec:v ${vcode} -tune -film -codec:a ${acodec} -b:a 384k -movflags +faststart ${indir}/CCast_Videos/${file}.${outmode}"
-        ffmpeg -i "${file}" -codec:v ${vcode} -tune -film -codec:a ${acodec} -b:a 384k -movflags +faststart "${indir}/CCast_Videos/${file}.${outmode}"
+	echo "ffmpeg -i  ${file}  -codec:v ${vcodec} ${CASTIZE_FFMPEG_ARGS} -codec:a ${acodec}  ${indir}/CCast_Videos/${file}.${outmode}"
+          ffmpeg -i "${file}" -codec:v ${vcodec} ${CASTIZE_FFMPEG_ARGS} -codec:a ${acodec} "${indir}/CCast_Videos/${file}.${outmode}"
 
     notify_complete ${destfile}
 }
@@ -248,6 +251,8 @@ else
     sourcedir="${CASTIZE_SOURCE_DIR}"
     indir="${CASTIZE_TARGET_DIR}"
 fi
+
+CASTIZE_FFMPEG_ARGS=${CASTIZE_FFMPEG_ARGS:-"-tune -film -b:a 384k -movflags +faststart"}
 
 check_dir "source directory" "${sourcedir}"
 check_dir "target directory" "${indir}"
