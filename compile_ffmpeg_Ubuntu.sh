@@ -47,7 +47,7 @@ make distclean
 cd $dir/ffmpeg_sources
 wget http://ffmpeg.org/releases/ffmpeg-$ffmpeg.tar.bz2
 tar xjvf ffmpeg-$ffmpeg.tar.bz2
-cd ffmpeg
+cd ffmpeg-$ffmpeg
 PATH="$dir/bin:$PATH" PKG_CONFIG_PATH="$dir/ffmpeg_build/lib/pkgconfig" ./configure \
   --prefix="$dir/ffmpeg_build" \
   --extra-cflags="-I$dir/ffmpeg_build/include" \
