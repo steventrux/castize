@@ -61,6 +61,7 @@ PATH="$dir/bin:$PATH" PKG_CONFIG_PATH="$dir/ffmpeg_build/lib/pkgconfig" ./config
   --enable-libtheora \
   --enable-libvorbis \
   --enable-libx264 \
+  --enable-libx265 \
   --enable-nonfree
 PATH="$HOME/bin:$PATH" make
 make install
