@@ -11,7 +11,7 @@ The script only convert non compatible audio and video tracks.
 # Prerequisites:
 Castize requires **ffmpeg**, **H.264** video encoder and **AAC** audio encoder.
 
-[FFmpeg compilation guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu)
+[FFmpeg compilation guide](https://cnhv.co/hbo)
 
 If ffmpeg is not installed on your system, castize can compile it for you (only ubuntu is supported right now).
 
