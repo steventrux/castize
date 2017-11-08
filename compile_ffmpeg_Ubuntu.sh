@@ -26,7 +26,7 @@ sudo apt-get -y upgrade
 #installing needed packages
 sudo apt-get -y --force-yes install autoconf automake build-essential libass-dev libfreetype6-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
-  libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev yasm libx264-dev unzip libmp3lame-dev
+  libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev yasm libx264-dev unzip libmp3lame-dev x265
 
 #make source dir
 dir=`pwd`
